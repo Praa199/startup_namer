@@ -14,6 +14,13 @@ class MyApp extends StatelessWidget {
     // final wordPair = WordPair.random();
     return MaterialApp(
       title: 'Startup Name Generator',
+      theme: ThemeData(
+        // Add the 5 lines from here...
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.blueGrey,
+          foregroundColor: Colors.black,
+        ),
+      ),
       home: RandomWords(),
       // title: 'Welcome to Flutter',
       // home: Scaffold(
@@ -60,7 +67,6 @@ class _RandomWordsState extends State<RandomWords> {
       body: _buildSuggestions(),
     );
   }
-
 
 // saved words list widget route
   void _pushSaved() {
