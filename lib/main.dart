@@ -4,40 +4,83 @@
 import "package:english_words/english_words.dart";
 import 'package:flutter/material.dart';
 
+// start function
 void main() => runApp(MyApp());
 
+// main widget
 class MyApp extends StatelessWidget {
-  // const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     // final wordPair = WordPair.random();
     return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome to Flutter'),
-        ),
-        // body: const Center(
-        //     child: Text('Hello World'),
-        body: Center(
-          // child: Text(wordPair.asPascalCase),
-          child: RandomWords(),
-        ),
-      ),
+      title: 'Startup Name Generator',
+      home: RandomWords(),
+      // title: 'Welcome to Flutter',
+      // home: Scaffold(
+      // (
+      //   appBar: AppBar(
+      //     title: const Text('Welcome to Flutter'),
+      //   ),
+      //   // body: const Center(
+      //   //     child: Text('Hello World'),
+      //   body: Center(
+      //     // child: Text(wordPair.asPascalCase),
+      //     child: RandomWords(),
+      //   ),
+      // ),
     );
   }
 }
 
+//  default app bar and a body property stateful widget
 class RandomWords extends StatefulWidget {
   @override
   _RandomWordsState createState() => _RandomWordsState();
 }
 
+//  default app bar and a body state
 class _RandomWordsState extends State<RandomWords> {
+  final _suggestions = <WordPair>[];
+  final _saved = <WordPair>{};
+  final _biggerFont = const TextStyle(fontSize: 20.0);
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
-    return Text(wordPair.asPascalCase);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Startup Name Generator'),
+      ),
+      body: _buildSuggestions(),
+    );
+  }
+
+// list widget
+  Widget _buildSuggestions() {
+    return ListView.builder(
+        padding: const EdgeInsets.all(16.0),
+        itemBuilder: /*1*/ (context, i) {
+          if (i.isOdd) return const Divider(); /*2*/
+
+          final index = i ~/ 2; /*3*/
+          if (index >= _suggestions.length) {
+            _suggestions.addAll(generateWordPairs().take(10)); /*4*/
+          }
+          return _buildRow(_suggestions[index]);
+        });
+  }
+
+// calls english_words API
+  Widget _buildRow(WordPair pair) {
+    final alreadySaved = _saved.contains(pair);
+    return ListTile(
+      title: Text(
+        pair.asPascalCase,
+        style: _biggerFont,
+      ),
+      trailing: Icon(
+        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: alreadySaved ? Colors.red : null,
+        semanticLabel: alreadySaved ? 'Remove from saved' : 'Save',
+      ),
+    );
   }
 }

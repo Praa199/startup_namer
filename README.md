@@ -2,6 +2,23 @@
 
 A new Flutter project.
 
+
+You'll start with a simple mobile app that generates an endless list of proposed names for a startup company. By the end of the codelab, your end users can select and unselect names, saving the best ones. Tapping the list icon in the upper right of the app bar navigates to a new page (called a route) that lists only the favorited names.
+
+
+
+Created a Flutter app from the ground up.
+
+Written Dart code.
+
+Leveraged an external, third-party library.
+
+Used hot reload for a faster development cycle.
+
+Implemented a stateful widget.
+
+Created a lazily loaded, infinite scrolling list.
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
